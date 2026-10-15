@@ -1,1 +1,27 @@
+name: Windows desktop
 
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.9
+      - name: 단위 테스트 (shared)
+        run: gradle :shared:test --stacktrace
+      - name: 앱 이미지 빌드 (설치 없이 실행 가능한 폴더)
+        run: gradle :desktopApp:createDistributable --stacktrace
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clearfetch-windows-app
+          path: desktopApp/build/compose/binaries/main/app
