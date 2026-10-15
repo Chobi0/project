@@ -35,7 +35,7 @@ jobs:
           name: dependency-tree
           path: deps.txt
       - name: 광고/추적 의존성 검사 (병합된 매니페스트 포함)
-        run: scripts/ad_audit.sh .
+        run: bash scripts/ad_audit.sh .
       - uses: actions/upload-artifact@v4
         with:
           name: clearfetch-android-debug-apk
