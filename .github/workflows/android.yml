@@ -18,7 +18,7 @@ jobs:
         with:
           gradle-version: 8.9
       - name: 광고/추적 의존성 검사 (소스)
-        run: scripts/ad_audit.sh .
+        run: bash scripts/ad_audit.sh .
       - name: 단위 테스트 (shared)
         run: gradle :shared:test --stacktrace
       - name: Debug APK 빌드
